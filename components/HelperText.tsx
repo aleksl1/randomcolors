@@ -1,12 +1,13 @@
 import { FC } from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, StyleProp, TextStyle } from "react-native";
 
 type HelperTextProps = {
   text: string;
+  textStyle?: StyleProp<TextStyle>;
 };
 
-const HelperText: FC<HelperTextProps> = ({ text }) => {
-  return <Text style={styles.helperText}>{text}</Text>;
+const HelperText: FC<HelperTextProps> = ({ text, textStyle }) => {
+  return <Text style={[styles.helperText, textStyle]}>{text}</Text>;
 };
 
 export default HelperText;

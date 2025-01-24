@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     justifyContent: "center",
   },
-  historyAddText: { fontSize: 26, textAlign: "center" },
+  historyAddText: { fontSize: 26, textAlign: "center", marginTop: -2 },
   historyItem: {
     width: colorItemSize,
     height: colorItemSize,

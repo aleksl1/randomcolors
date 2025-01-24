@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import { ColorType } from "@/types/color.types";
@@ -8,28 +8,54 @@ import HelperText from "../HelperText";
 type ColorCodesInfoProps = Pick<ColorType, "colorHEX" | "colorRGB">;
 
 const ColorCodesInfo: FC<ColorCodesInfoProps> = ({ colorHEX, colorRGB }) => {
-  const copyToClipboard = async (text: string) => {
+  const [copied, setCopied] = useState<"hex" | "rgb" | null>(null);
+
+  const copyToClipboard = async (text: string) =>
     await Clipboard.setStringAsync(text);
-  };
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    const subscription = Clipboard.addClipboardListener(async () => {
+      const content = await Clipboard.getStringAsync();
+      content[0] === "#" ? setCopied("hex") : setCopied("rgb");
+      timeout = setTimeout(() => {
+        setCopied(null);
+      }, 1500);
+    });
+    return () => {
+      clearTimeout(timeout);
+      Clipboard.removeClipboardListener(subscription);
+    };
+  }, []);
 
   return (
     <View style={styles.container}>
       <HelperText text="color codes (copy)" />
       <View style={styles.colorInfo}>
-        <CustomButton
-          text={colorRGB}
-          buttonStyle={styles.colorInfoButton}
-          textStyle={styles.colorInfoText}
-          onPress={() => copyToClipboard(colorRGB)}
-          rightIcon={<Text>📄</Text>}
-        />
-        <CustomButton
-          text={colorHEX}
-          buttonStyle={styles.colorInfoButton}
-          textStyle={styles.colorInfoText}
-          onPress={() => copyToClipboard(colorHEX)}
-          rightIcon={<Text>📄</Text>}
-        />
+        <View>
+          <CustomButton
+            text={colorRGB}
+            buttonStyle={styles.colorInfoButton}
+            textStyle={styles.colorInfoText}
+            onPress={() => copyToClipboard(colorRGB)}
+            rightIcon={<Text>📄</Text>}
+          />
+          {copied === "rgb" && (
+            <HelperText text="copied" textStyle={styles.copiedText} />
+          )}
+        </View>
+        <View>
+          <CustomButton
+            text={colorHEX}
+            buttonStyle={styles.colorInfoButton}
+            textStyle={styles.colorInfoText}
+            onPress={() => copyToClipboard(colorHEX)}
+            rightIcon={<Text>📄</Text>}
+          />
+          {copied === "hex" && (
+            <HelperText text="copied" textStyle={styles.copiedText} />
+          )}
+        </View>
       </View>
     </View>
   );
@@ -50,5 +76,10 @@ const styles = StyleSheet.create({
   },
   colorInfoButton: {
     backgroundColor: "black",
+  },
+  copiedText: {
+    position: "absolute",
+    bottom: -20,
+    right: 60,
   },
 });
