@@ -30,7 +30,13 @@ const ColorHistory: FC<ColorHistoryProps> = ({
       </View>
       <View style={styles.historyList}>
         <Pressable
-          style={[styles.historyAdd, styles.historyItem]}
+          style={({ pressed }) => [
+            {
+              opacity: pressed ? 0.5 : 1,
+            },
+            styles.historyAdd,
+            styles.historyItem,
+          ]}
           onPress={setNewRandomColor}
         >
           <Text style={styles.historyAddText}>+</Text>
@@ -39,9 +45,10 @@ const ColorHistory: FC<ColorHistoryProps> = ({
           <Pressable
             onPress={() => setColor({ colorRGB, colorHEX, contrastColor })}
             key={`${colorHEX}-${index}`}
-            style={[
+            style={({ pressed }) => [
               {
                 backgroundColor: colorRGB,
+                opacity: pressed ? 0.5 : 1,
               },
               styles.historyItem,
             ]}

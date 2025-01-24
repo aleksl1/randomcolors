@@ -20,7 +20,7 @@ const ColorCodesInfo: FC<ColorCodesInfoProps> = ({ colorHEX, colorRGB }) => {
       content[0] === "#" ? setCopied("hex") : setCopied("rgb");
       timeout = setTimeout(() => {
         setCopied(null);
-      }, 1500);
+      }, 1000);
     });
     return () => {
       clearTimeout(timeout);
@@ -41,7 +41,7 @@ const ColorCodesInfo: FC<ColorCodesInfoProps> = ({ colorHEX, colorRGB }) => {
             rightIcon={<Text>📄</Text>}
           />
           {copied === "rgb" && (
-            <HelperText text="copied" textStyle={styles.copiedText} />
+            <HelperText text="✔️ copied" textStyle={styles.copiedText} />
           )}
         </View>
         <View>
@@ -53,7 +53,7 @@ const ColorCodesInfo: FC<ColorCodesInfoProps> = ({ colorHEX, colorRGB }) => {
             rightIcon={<Text>📄</Text>}
           />
           {copied === "hex" && (
-            <HelperText text="copied" textStyle={styles.copiedText} />
+            <HelperText text="✔️ copied" textStyle={styles.copiedText} />
           )}
         </View>
       </View>
@@ -80,6 +80,6 @@ const styles = StyleSheet.create({
   copiedText: {
     position: "absolute",
     bottom: -20,
-    right: 60,
+    right: 50,
   },
 });

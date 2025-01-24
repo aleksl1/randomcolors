@@ -27,7 +27,16 @@ const CustomButton: FC<CustomButtonProps> = ({
   ...props
 }) => {
   return (
-    <Pressable style={[styles.button, buttonStyle]} {...props}>
+    <Pressable
+      style={({ pressed }) => [
+        {
+          opacity: pressed ? 0.5 : 1,
+        },
+        styles.button,
+        buttonStyle,
+      ]}
+      {...props}
+    >
       <Text style={[styles.text, textStyle]} {...textProps}>
         {text}
       </Text>
