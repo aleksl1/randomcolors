@@ -3,10 +3,12 @@ export enum ContrastColor {
   White = "white",
 }
 
-export type Color = {
+export type ColorType = {
   colorRGB: string;
   colorHEX: string;
   contrastColor: ContrastColor;
 };
 
-export type ColorAction = (args: Color) => void;
+export type ColorActionType = (args: ColorType) => void;
+
+export type ColorHistoryType = ColorType[];
