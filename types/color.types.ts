@@ -8,3 +8,5 @@ export type Color = {
   colorHEX: string;
   contrastColor: ContrastColor;
 };
+
+export type ColorAction = (args: Color) => void;
