@@ -1,9 +1,11 @@
 import { ContrastColor } from "@/types/color.types";
 
+const getRandomRGBValue = () => Math.floor(Math.random() * 256);
+
 export const generateRandomColor = () => {
-  const r = Math.floor(Math.random() * 256);
-  const g = Math.floor(Math.random() * 256);
-  const b = Math.floor(Math.random() * 256);
+  const r = getRandomRGBValue();
+  const g = getRandomRGBValue();
+  const b = getRandomRGBValue();
   return {
     colorRGB: `rgb(${r}, ${g}, ${b})`,
     colorHEX: `#${decimalToHex(r)}${decimalToHex(g)}${decimalToHex(b)}`,
@@ -11,6 +13,7 @@ export const generateRandomColor = () => {
   };
 };
 
+//source for contrast color condition: https://ux.stackexchange.com/a/151290
 const getContrastColor = ({ r, g, b }: { r: number; g: number; b: number }) => {
   if (g > 180 || r + g + b > 450) return ContrastColor.Black;
   return ContrastColor.White;

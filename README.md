@@ -1,10 +1,10 @@
-# About
-
-Random colors app task:
+# Random colors app
 
 Required feature:
 
 Display the text "Hello there" in the middle of the screen and after tapping anywhere on the screen, a background color should be changed to a randomly generated color
+
+\*displayed text color is set to either black or white to match contrast of random generated color
 
 Additional features:
 
