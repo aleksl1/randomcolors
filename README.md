@@ -10,13 +10,13 @@ Additional features:
 
 1. Info button in bottom right corner opens color info sheet
 
-2. Color info sheet contains:
+2. Color info sheet:
    - close button in top right corner to close color info sheet
    - current color rgb code - press to copy rgb to clipboard
    - current color hex code - press to copy hex to clipboard
    - history of generated colors
    - clear button to clear history
-   - add button to add random color
+   - add button - adds random color to history and changes background color accordingly
 
 # Welcome to your Expo app 👋
 
