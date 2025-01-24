@@ -28,6 +28,12 @@ const ColorCodesInfo: FC<ColorCodesInfoProps> = ({ colorHEX, colorRGB }) => {
     };
   }, []);
 
+  const copyColorButtonCommonProps = {
+    buttonStyle: styles.colorInfoButton,
+    textStyle: styles.colorInfoText,
+    rightIcon: <Text>📄</Text>,
+  };
+
   return (
     <View style={styles.container}>
       <HelperText text="color codes (copy)" />
@@ -35,25 +41,27 @@ const ColorCodesInfo: FC<ColorCodesInfoProps> = ({ colorHEX, colorRGB }) => {
         <View>
           <CustomButton
             text={colorRGB}
-            buttonStyle={styles.colorInfoButton}
-            textStyle={styles.colorInfoText}
             onPress={() => copyToClipboard(colorRGB)}
-            rightIcon={<Text>📄</Text>}
+            {...copyColorButtonCommonProps}
           />
           {copied === "rgb" && (
-            <HelperText text="✔️ copied" textStyle={styles.copiedText} />
+            <HelperText
+              text="✔️ copied"
+              textStyle={[styles.copiedText, styles.copiedRgbText]}
+            />
           )}
         </View>
         <View>
           <CustomButton
             text={colorHEX}
-            buttonStyle={styles.colorInfoButton}
-            textStyle={styles.colorInfoText}
             onPress={() => copyToClipboard(colorHEX)}
-            rightIcon={<Text>📄</Text>}
+            {...copyColorButtonCommonProps}
           />
           {copied === "hex" && (
-            <HelperText text="✔️ copied" textStyle={styles.copiedText} />
+            <HelperText
+              text="✔️ copied"
+              textStyle={[styles.copiedText, styles.copiedHexText]}
+            />
           )}
         </View>
       </View>
@@ -80,6 +88,11 @@ const styles = StyleSheet.create({
   copiedText: {
     position: "absolute",
     bottom: -20,
-    right: 50,
+  },
+  copiedRgbText: {
+    right: 60,
+  },
+  copiedHexText: {
+    right: 20,
   },
 });
