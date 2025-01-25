@@ -17,6 +17,12 @@ Additional features:
    - history of generated colors
    - clear button to clear history
    - add button - adds random color to history and changes background color accordingly
+  
+
+
+https://github.com/user-attachments/assets/ece72f7d-07b4-46e7-9f11-7ba4ab1407cc
+
+
 
 # Welcome to your Expo app 👋
 
