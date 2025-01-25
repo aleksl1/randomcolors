@@ -13,7 +13,7 @@ type ColorInfoSheetProps = {
   setNewRandomColor: () => void;
   colorHistory: ColorHistoryType;
   resetColorHistory: () => void;
-  setShowSettings: (show: boolean) => void;
+  onPressClose: () => void;
 };
 
 const ColorInfoSheet: FunctionComponent<ColorInfoSheetProps> = ({
@@ -23,7 +23,7 @@ const ColorInfoSheet: FunctionComponent<ColorInfoSheetProps> = ({
   setNewRandomColor,
   colorHistory,
   resetColorHistory,
-  setShowSettings,
+  onPressClose,
 }) => {
   return (
     <SafeAreaView style={styles.container} edges={["bottom"]}>
@@ -36,7 +36,7 @@ const ColorInfoSheet: FunctionComponent<ColorInfoSheetProps> = ({
       />
       <CustomButton
         text="+"
-        onPress={() => setShowSettings(false)}
+        onPress={onPressClose}
         buttonStyle={styles.closeButton}
         textStyle={styles.closeButtonText}
       />
@@ -48,33 +48,14 @@ export default ColorInfoSheet;
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    left: 0,
-    backgroundColor: "white",
-    paddingHorizontal: 16,
     paddingVertical: 32,
     gap: 32,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    ...Platform.select({
-      ios: {
-        shadowColor: "black",
-        shadowOffset: { width: 0, height: -2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 4,
-      },
-      android: {
-        elevation: 4,
-      },
-    }),
   },
   closeButton: {
     padding: 0,
     position: "absolute",
-    top: 0,
-    right: -8,
+    top: -8,
+    right: -16,
     transform: [{ rotate: "45deg" }],
     borderWidth: 0,
   },

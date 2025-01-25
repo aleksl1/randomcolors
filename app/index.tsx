@@ -1,3 +1,4 @@
+import { BottomSheet } from "@/components/BottomSheet";
 import ColorInfoSheet from "@/components/colorFeatures/ColorInfoSheet";
 import CustomButton from "@/components/CustomButton";
 import useRandomColor from "@/hooks/useRandomColor";
@@ -10,14 +11,15 @@ import {
   StyleSheet,
   Text,
 } from "react-native";
+import { useSharedValue } from "react-native-reanimated";
 
 export default function Index() {
-  const [showColorInfoSheet, setShowColorInfoSheet] = useState(false);
   const [colorHistory, setColorHistory] = useState<ColorHistoryType>([]);
+  const isOpen = useSharedValue(false);
 
   const resetColorHistory = () => setColorHistory([]);
   const addDisplayedColorToHistory: ColorActionType = (color) => {
-    setColorHistory((prev) => [...prev, color]);
+    setColorHistory((prev) => [color, ...prev]);
   };
 
   const {
@@ -27,6 +29,10 @@ export default function Index() {
     randomColorHEX,
     setColor,
   } = useRandomColor(addDisplayedColorToHistory);
+
+  const toggleSheet = () => {
+    isOpen.value = !isOpen.value;
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -45,14 +51,14 @@ export default function Index() {
       </Pressable>
       <CustomButton
         text="Info"
-        onPress={() => setShowColorInfoSheet(true)}
+        onPress={toggleSheet}
         buttonStyle={{
           ...styles.absoluteButton,
           backgroundColor: contrastColor,
         }}
         textStyle={{ color: randomColorRGB }}
       />
-      {showColorInfoSheet && (
+      <BottomSheet isOpen={isOpen} toggleSheet={toggleSheet}>
         <ColorInfoSheet
           randomColorHEX={randomColorHEX}
           randomColorRGB={randomColorRGB}
@@ -60,9 +66,9 @@ export default function Index() {
           setNewRandomColor={setNewRandomColor}
           colorHistory={colorHistory}
           resetColorHistory={resetColorHistory}
-          setShowSettings={setShowColorInfoSheet}
+          onPressClose={toggleSheet}
         />
-      )}
+      </BottomSheet>
     </SafeAreaView>
   );
 }

@@ -1,6 +1,6 @@
 import { ColorHistoryType, ColorActionType } from "@/types/color.types";
 import { FC } from "react";
-import { View, Pressable, Text, StyleSheet } from "react-native";
+import { View, Pressable, Text, StyleSheet, ScrollView } from "react-native";
 import CustomButton from "../CustomButton";
 import HelperText from "../HelperText";
 
@@ -28,7 +28,11 @@ const ColorHistory: FC<ColorHistoryProps> = ({
           textStyle={styles.resetButtonText}
         />
       </View>
-      <View style={styles.historyList}>
+      <ScrollView
+        contentContainerStyle={styles.historyList}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      >
         <Pressable
           style={({ pressed }) => [
             {
@@ -54,7 +58,7 @@ const ColorHistory: FC<ColorHistoryProps> = ({
             ]}
           ></Pressable>
         ))}
-      </View>
+      </ScrollView>
     </View>
   );
 };
